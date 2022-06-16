@@ -4,14 +4,12 @@
 class Ticket
 {
 protected:
-	char* nomConcesionario; // infor concesionario
-	char* nomVendedor;
 	char* nomComprador;
 	char* nomCoche; // marca - modelo
 	char* fechaCompra;
 public:
 	Ticket();
-	Ticket(const char* nomConcesionario, const char* fechaCompra, const char* nomVendedor, const char* nomComprador, const char* nomCoche);
+	Ticket(const char* fechaCompra, const char* nomComprador, const char* nomCoche);
 	~Ticket();
 
 	void comprarCoche();
