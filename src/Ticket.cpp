@@ -9,7 +9,6 @@ Ticket::Ticket()
 	this->nomCoche = NULL;
 }
 
-// no sé si habria que ponerlo por defecto a 0
 Ticket::Ticket(const char* fechaCompra, const char* nomComprador, const char* nomCoche)
 {
 	this->fechaCompra = new char[strlen(fechaCompra)+1];

@@ -2,6 +2,7 @@
 
 #include "Coche.h"
 #include <string.h>
+using namespace std;
 
 Coche::Coche()
 {
@@ -84,7 +85,17 @@ void Coche::setAnyoFabricacion(const char* anyoFabricacion)
 	strcpy(this->anyoFabricacion, anyoFabricacion);
 }
 
-void imprimirInformacion()
+void Coche::imprimirInformacion()
 {
-	// imprimir info
+	cout << "Marca: " << this->marca << endl;
+	cout << "Modelo: " << this->modelo << endl;
+
+	if(this->automatico == true){
+		cout << "Automático" << endl;
+	} else {
+		cout << "No automático" << endl;
+	}
+
+	cout << "Plazas: " << this->plazas << endl;
+	cout << "Año fabricación: " << this->anyoFabricacion << endl;
 }

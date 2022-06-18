@@ -12,7 +12,7 @@ Vendedor::Vendedor(): Usuario()
 	this->numVentas = 0;
 }
 
-Vendedor::Vendedor(const char* nombre, const char* dni, const char* telefono, const char* email): Usuario(nombre, dni, telefono, email)
+Vendedor::Vendedor(const char* nombre, const char* dni, const char* telefono, const char* email): Usuario(nombre, dni, email)
 {
 	this->sueldo = 0.0;
 	this->numVentas = 0;

@@ -8,20 +8,20 @@
 Comprador::Comprador(): Usuario()
 {
 	this->cuentaBancaria = NULL;
-	this->tickets = new Ticket*[VALOR];
+//	this->tickets = new Ticket*[VALOR];
 }
 
-Comprador::Comprador(const char* nombre, const char* dni, const char* telefono, const char* email, const char* cuentaBancaria): Usuario(nombre, dni, telefono, email)
+Comprador::Comprador(const char* nombre, const char* dni, const char* telefono, const char* email, const char* cuentaBancaria): Usuario(nombre, dni, email)
 {
 	this->cuentaBancaria = new char[strlen(cuentaBancaria)+1];
 	strcpy(this->cuentaBancaria, cuentaBancaria);
-	this->tickets = new Ticket*[200];
+//	this->tickets = new Ticket*[200];
 }
 
 Comprador::~Comprador()
 {
 	delete[]this->cuentaBancaria;
-	delete[]this->tickets;
+//	delete[]this->tickets;
 }
 
 char* Comprador::getCuentaBancaria() const
@@ -35,10 +35,10 @@ void Comprador::setCuentaBancaria(const char* cuentaBancaria)
 	strcpy(this->cuentaBancaria, cuentaBancaria);
 }
 
-Ticket** Comprador::getTickets()
-{
-	return this->tickets;
-}
+//Ticket** Comprador::getTickets()
+//{
+//	return this->tickets;
+//}
 
 void Comprador::imprimirInformacion()
 {

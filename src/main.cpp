@@ -10,5 +10,9 @@ using namespace std;
 int main(void)
 {
 
+	Coche* c1 = new Coche("Citroen", "C3", false, 7, "2020");
+
+	c1->imprimirInformacion();
+
 	return 0;
 }

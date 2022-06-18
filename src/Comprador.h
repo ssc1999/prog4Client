@@ -10,7 +10,7 @@ class Comprador: public Usuario
 {
 protected:
 	char* cuentaBancaria;
-	Ticket** tickets;
+//	Ticket** tickets; // crear un método en la bd que me devuelva los tickets de x vendedor
 public:
 	Comprador();
 	Comprador(const char* nombre, const char* dni, const char* telefono, const char* email, const char* cuentaBancaria);
@@ -18,7 +18,7 @@ public:
 
 	char* getCuentaBancaria() const;
 	void setCuentaBancaria(const char* cuentaBancaria);
-	Ticket** getTickets();
+//	Ticket** getTickets();
 
 	void imprimirInformacion();
 };
