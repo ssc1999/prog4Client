@@ -4,22 +4,25 @@
 class Coche
 {
 protected:
+	char* matricula;
 	char* marca;
 	char* modelo;
-	bool automatico;
+	int automatico;
 	int plazas;
 	char* anyoFabricacion;
 public:
 	Coche();
-	Coche(const char* marca, const char* modelo, bool automaatico, int plazas, const char* anyoFabricacion);
+	Coche(const char* matricula, const char* marca, const char* modelo, int automaatico, int plazas, const char* anyoFabricacion);
 	~Coche();
 
+	char* getMatricula() const;
+	void setMatricula(const char* matricula);
 	char* getMarca() const;
 	void setMarca(const char* marca);
 	char* getModelo() const;
 	void setModelo(const char* modelo);
-	bool getAutomatico() const;
-	void setAutomatico(bool automatico);
+	int getAutomatico() const;
+	void setAutomatico(int automatico);
 	int getPlazas() const;
 	void setPlazas(int plazas);
 	char* getAnyoFabricacion() const;
