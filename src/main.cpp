@@ -17,27 +17,27 @@ using namespace std;
 
 void menuInicio()
 {
-	cout << " ------------------------------------------------" << endl;
-	cout << "| C/C++                              | - | o | X |" << endl;
-	cout << "|------------------------------------------------|" << endl;
-	cout << "|                                                |" << endl;
-	cout << "|    xxx                                         |" << endl;
-	cout << "|    x xxx                                       |" << endl;
-	cout << "|    x   xxx                                     |" << endl;
-	cout << "|    x     x   xxxx  x  x  xxxx  xxxxx  xx  x    |" << endl;
-	cout << "|    x     xx  x     x  x  x     x   x  xx  x    |" << endl;
-	cout << "|    x      x  xxx   x  x  x     x   x  xxx x    |" << endl;
-	cout << "|    x     xx  x     x  x  x     x   x  x xxx    |" << endl;
-	cout << "|    xxxxxxx   xxxx  xxxx  xxxx  xxxxx  x  xx    |" << endl;
-	cout << "|                                                |" << endl;
-	cout << " ------------------------------------------------" << endl;
+	// cout << " ------------------------------------------------" << endl;
+	// cout << "| C/C++                              | - | o | X |" << endl;
+	// cout << "|------------------------------------------------|" << endl;
+	// cout << "|                                                |" << endl;
+	// cout << "|    xxx                                         |" << endl;
+	// cout << "|    x xxx                                       |" << endl;
+	// cout << "|    x   xxx                                     |" << endl;
+	// cout << "|    x     x   xxxx  x  x  xxxx  xxxxx  xx  x    |" << endl;
+	// cout << "|    x     xx  x     x  x  x     x   x  xx  x    |" << endl;
+	// cout << "|    x      x  xxx   x  x  x     x   x  xxx x    |" << endl;
+	// cout << "|    x     xx  x     x  x  x     x   x  x xxx    |" << endl;
+	// cout << "|    xxxxxxx   xxxx  xxxx  xxxx  xxxxx  x  xx    |" << endl;
+	// cout << "|                                                |" << endl;
+	// cout << " ------------------------------------------------" << endl;
 
-	cout << "                               	   Andrea Martinez" << endl;
-	cout << "" << endl;
-	cout << "" << endl;
-	cout << "" << endl;
+	// cout << "                               	   Andrea Martinez" << endl;
+	// cout << "" << endl;
+	// cout << "" << endl;
+	// cout << "" << endl;
 	cout << " ------------------------------------------------" << endl;
-	cout << "| Deucon                             | - | o | X |" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|    Bienvenido!                                 |" << endl;
@@ -52,13 +52,13 @@ void menuInicio()
 void menuPrograma()
 {
 	cout << " ------------------------------------------------ " << endl;
-	cout << "| Deucon                             | - | o | X |" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|    Bienvenido!                                 |" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|    1. Comprar coche                            |" << endl;
-	cout << "|    2. Mis coches             	              |" << endl;
+	cout << "|    2. Mis coches             	                 |" << endl;
 	cout << "|    3. Mis tickets                              |" << endl;
 	cout << "|    4. Ver perfil                               |" << endl;
 	cout << "|    5. Cerrar Sesion                            |" << endl;
@@ -69,7 +69,7 @@ void menuPrograma()
 void menuNombreUsuario()
 {
 	cout << " ------------------------------------------------" << endl;
-	cout << "| Deucon                             | - | o | X |" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|   Nombre de usuario:                           |" << endl;
@@ -80,7 +80,7 @@ void menuNombreUsuario()
 
 void menuContrasenya(){
 	cout << " ------------------------------------------------" << endl;
-	cout << "| Deucon                             | - | o | X |" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|   Contrasenya:                                 |" << endl;
@@ -91,7 +91,7 @@ void menuContrasenya(){
 
 void cajaTextoSuperior(){
 	cout << " ------------------------------------------------ " << endl;
-	cout << "| Deucon                             | - | o | X |" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
 }
@@ -150,9 +150,10 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 	///////////////////////////////////////////////////////
 
 	// SEND and RECEIVE data (CLIENT/SERVER PROTOCOL)
-
+	system("cls");
 	do
 	{
+		
 		menuInicio();
 		cin >> opcion;
 		cout << "\n";
@@ -179,6 +180,7 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 				recv(s, recvBuff, sizeof(recvBuff), 0);
 				if(strcmp(recvBuff, "correcto") == 0){
 					do{
+						system("cls");
 						menuPrograma();
 						cin >> opcion2;
 						cout << "\n";
@@ -213,13 +215,20 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 							case 5:
 								strcpy(sendBuff, "cerrarSesion");
 								send(s, sendBuff, sizeof(sendBuff), 0);
-								cout << "Sesion finalizada" << endl;
+								system("cls");
 								break;
 							default:
 								cout << "Error, seleccione otra opcion." << endl;
 								break;
 						}
 					} while (opcion2 != 5);
+				}else{
+					system("cls");
+					cout << "////////////////////////////////////////"<< endl;
+					cout << "                            "<< endl;
+					cout << "Los datos introducidos son " << recvBuff << endl;
+					cout << "                            "<< endl;
+					cout << "////////////////////////////////////////"<< endl;
 				}
 				break;
 			case 2:
