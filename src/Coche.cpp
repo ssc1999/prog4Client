@@ -106,7 +106,7 @@ void Coche::setAnyoFabricacion(int anyoFabricacion)
 void Coche::imprimirInformacion()
 {
 	cout << this->marca << " - " << this->modelo << endl;
-	cout << -- -- -- -- -- -- -- -- -- -- -- - << endl;
+	cout << "-- -- -- -- -- -- -- -- -- -- -- - "<< endl;
 	cout << "Matricula: " << this->matricula << endl;
 	if (this->automatico == 1)
 	{

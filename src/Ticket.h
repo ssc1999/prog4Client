@@ -22,12 +22,12 @@ public:
 	char* getFechaCompra() const;
 	void setFechaCompra(const char* fechaCompra);
 
-	void comprarCoche();
+	void imprimirInformacion();
 
-	// método comprarCoche :
+	// mï¿½todo comprarCoche :
 	//	 se crea un ticket
 	//	 quitar coche de la lista
-	//	 añadir el precio al total ganado del concesionario
+	//	 aï¿½adir el precio al total ganado del concesionario
 
 };
 

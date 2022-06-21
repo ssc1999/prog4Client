@@ -74,7 +74,11 @@ void Ticket::setFechaCompra(const char* fechaCompra)
 	strcpy(this->fechaCompra, fechaCompra);
 }
 
-void Ticket::comprarCoche()
+void Ticket::imprimirInformacion()
 {
+	cout << "Ticket: " << endl;
+	cout << this->matricula << endl;
+	cout << this->nomComprador << endl;
+	cout << this->fechaCompra << endl;
 	//
 }

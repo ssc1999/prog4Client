@@ -5,9 +5,10 @@
 //#include "Vendedor.h"
 //#include "Usuario.h"
 //#include "Ticket.h"
-
+#include <time.h>
 #include <iostream>
-#include "Coche.h";
+#include "Coche.h"
+#include "Ticket.h"
 using namespace std;
 
 #include <stdio.h>
@@ -113,9 +114,10 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 	WSADATA wsaData;
 	SOCKET s;
 	struct sockaddr_in server;
-	char usuario[20], buff[100], sendBuff[512], recvBuff[512];
+	char usuario[20], nombreComprador[20], buff[100], sendBuff[512], recvBuff[512];
 	int i, opcion, opcion2, opcion3, extra, extra2;
-	Coche listaCoches[50];
+	Coche* listaCoches[50];
+	Ticket *ticket;
 
 	printf("\nInitialising Winsock...\n");
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
@@ -151,6 +153,9 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 
 	printf("Connection stablished with: %s (%d)\n", inet_ntoa(server.sin_addr),
 		   ntohs(server.sin_port));
+	
+
+	
 
 	///////////////////////////////////////////////////////
 
@@ -199,47 +204,71 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 						strcpy(sendBuff, "comprarCoches");
 						send(s, sendBuff, sizeof(sendBuff), 0);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						atoi(extra, recvbuff);
+						extra = atoi(recvBuff);
 						for (i = 0; i < extra; i++)
 						{
-							Coche coche = new Coche();
+							Coche* coche = new Coche();
 							recv(s, recvBuff, sizeof(recvBuff), 0);
-							coche.setMatricula(recvBuff);
+							coche->setMatricula(recvBuff);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
-							coche.setMarca(recvbuff);
+							coche->setMarca(recvBuff);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
-							coche.setModelo(recvbuff);
+							coche->setModelo(recvBuff);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
-							atoi(extra2, recvbuff);
-							coche.setAutomatico(extra2);
+							extra2 = atoi(recvBuff);// esta dpm
+							coche->setAutomatico(extra2);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
-							atoi(extra2, recvbuff);
-							coche.setPlazas(extra2);
+							extra2 = atoi(recvBuff);
+							coche->setPlazas(extra2);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
-							atoi(extra2, recvbuff);
-							coche.setAnyoFabricacion(extra2);
-							coche.imprimirInformacion();
+							extra2 = atoi(recvBuff);
+							coche->setAnyoFabricacion(extra2);
+							coche->imprimirInformacion();
 							listaCoches[i] = coche;
 						}
 						// introduce que coche comprar
 						cin >> opcion3;
 
-						strcpy(sendBuff, listaCoches[opcion3].getMatricula());
-						send(s, sendBuff, sizeof(sendBuff), 0);
-						strcpy(sendBuff, listaCoches[opcion3].getMarca());
-						send(s, sendBuff, sizeof(sendBuff), 0);
-						strcpy(sendBuff, listaCoches[opcion3].getModelo());
-						send(s, sendBuff, sizeof(sendBuff), 0);
-						strcpy(sendBuff, (to_string(listaCoches[opcion3].getAutomatico())).c_str());
-						send(s, sendBuff, sizeof(sendBuff), 0);
-						strcpy(sendBuff, (to_string(listaCoches[opcion3].getPlazas())).c_str());
-						send(s, sendBuff, sizeof(sendBuff), 0);
-						strcpy(sendBuff, (to_string(listaCoches[opcion3].getAnyoFabricacion())).c_str());
+						// strcpy(sendBuff, listaCoches[opcion3]->getMarca());
+						// send(s, sendBuff, sizeof(sendBuff), 0);
+						// strcpy(sendBuff, listaCoches[opcion3]->getModelo());
+						// send(s, sendBuff, sizeof(sendBuff), 0);
+						// strcpy(sendBuff, (to_string(listaCoches[opcion3]->getAutomatico())).c_str());
+						// send(s, sendBuff, sizeof(sendBuff), 0);
+						// strcpy(sendBuff, (to_string(listaCoches[opcion3]->getPlazas())).c_str());
+						// send(s, sendBuff, sizeof(sendBuff), 0);
+						// strcpy(sendBuff, (to_string(listaCoches[opcion3]->getAnyoFabricacion())).c_str());
+						// send(s, sendBuff, sizeof(sendBuff), 0);
+
+						//coche matricula
+						strcpy(sendBuff, listaCoches[opcion3]->getMatricula());
 						send(s, sendBuff, sizeof(sendBuff), 0);
 
+						//usuario
+						strcpy(sendBuff, usuario);
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						//fecha actual
+						strcpy(sendBuff, "2022-06-28");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						//recibo el nombre del usuario
 						recv(s, recvBuff, sizeof(recvBuff), 0);
+						strcpy(nombreComprador, recvBuff);
+
 						if (strcmp(recvBuff, "OK") == 0)
 						{
+
+							// creo el ticket
+							ticket = new Ticket();
+							ticket->setNomComprador(nombreComprador);
+							ticket->setNomUsuario(usuario);
+							ticket->setMatricula(listaCoches[opcion3]->getMatricula());
+							ticket->setFechaCompra("2022-06-28");
+
+							//lo imprimo
+							ticket->imprimirInformacion();
+
 							cout << "Compra realizada con exito" << endl;
 
 							// imprime ticket de compra realizada
