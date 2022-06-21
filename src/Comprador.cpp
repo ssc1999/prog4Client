@@ -11,7 +11,7 @@ Comprador::Comprador(): Usuario()
 //	this->tickets = new Ticket*[VALOR];
 }
 
-Comprador::Comprador(const char* usuario, const char* contrasenya, const char* nombre, const char* dni, const char* telefono, const char* email, const char* cuentaBancaria): Usuario(nombre, dni, email)
+Comprador::Comprador(const char* usuario, const char* contrasenya, const char* nombre, const char* dni, const char* telefono, const char* email, const char* cuentaBancaria): Usuario(usuario, contrasenya, nombre, dni, email)
 {
 	this->cuentaBancaria = new char[strlen(cuentaBancaria)+1];
 	strcpy(this->cuentaBancaria, cuentaBancaria);
