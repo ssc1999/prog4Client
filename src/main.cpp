@@ -7,6 +7,7 @@
 //#include "Ticket.h"
 
 #include <iostream>
+#include "Coche.h";
 using namespace std;
 
 #include <stdio.h>
@@ -78,7 +79,8 @@ void menuNombreUsuario()
 	cout << " ------------------------------------------------" << endl;
 }
 
-void menuContrasenya(){
+void menuContrasenya()
+{
 	cout << " ------------------------------------------------" << endl;
 	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
@@ -89,14 +91,16 @@ void menuContrasenya(){
 	cout << " ------------------------------------------------" << endl;
 }
 
-void cajaTextoSuperior(){
+void cajaTextoSuperior()
+{
 	cout << " ------------------------------------------------ " << endl;
 	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
 }
 
-void cajaTextoInferior(){
+void cajaTextoInferior()
+{
 	cout << "|                                                |" << endl;
 	cout << " ------------------------------------------------ " << endl;
 }
@@ -110,7 +114,8 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 	SOCKET s;
 	struct sockaddr_in server;
 	char usuario[20], buff[100], sendBuff[512], recvBuff[512];
-	int opcion, opcion2;
+	int i, opcion, opcion2, opcion3, extra, extra2;
+	Coche listaCoches[50];
 
 	printf("\nInitialising Winsock...\n");
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
@@ -153,98 +158,152 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 	system("cls");
 	do
 	{
-		
+
 		menuInicio();
 		cin >> opcion;
 		cout << "\n";
 
 		switch (opcion)
 		{
-			case 1:
-				strcpy(sendBuff, "login");
-				send(s, sendBuff, sizeof(sendBuff), 0);
+		case 1:
+			strcpy(sendBuff, "login");
+			send(s, sendBuff, sizeof(sendBuff), 0);
 
-				menuNombreUsuario();
+			menuNombreUsuario();
 
-				cin >> buff;
-				strcpy(usuario, buff);
-				strcpy(sendBuff, buff);
-				send(s, sendBuff, sizeof(sendBuff), 0);
+			cin >> buff;
+			strcpy(usuario, buff);
+			strcpy(sendBuff, buff);
+			send(s, sendBuff, sizeof(sendBuff), 0);
 
-				menuContrasenya();
+			menuContrasenya();
 
-				cin >> buff;
-				strcpy(sendBuff, buff);
-				send(s, sendBuff, sizeof(sendBuff), 0);
+			cin >> buff;
+			strcpy(sendBuff, buff);
+			send(s, sendBuff, sizeof(sendBuff), 0);
 
-				recv(s, recvBuff, sizeof(recvBuff), 0);
-				if(strcmp(recvBuff, "correcto") == 0){
-					do{
-						system("cls");
-						menuPrograma();
-						cin >> opcion2;
-						cout << "\n";
-
-						switch (opcion2)
-						{
-							case 1:
-								// mandar instruccion comprarCoche al servidor
-								strcpy(sendBuff, "comprarCoches");
-								send(s, sendBuff, sizeof(sendBuff), 0);
-								recv(s, recvBuff, sizeof(recvBuff), 0);
-								cout << recvBuff << endl;
-								break;
-							case 2:
-								// mandar instruccion misCoches al servidor
-								strcpy(sendBuff, "misCoches");
-								send(s, sendBuff, sizeof(sendBuff), 0);
-
-								break;
-							case 3:
-								// mandar instruccion misTickets al servidor
-								strcpy(sendBuff, "misTickets");
-								send(s, sendBuff, sizeof(sendBuff), 0);
-
-								break;
-							case 4:
-								// mandar instruccion miPerfil al servidor
-								strcpy(sendBuff, "verPerfil");
-								send(s, sendBuff, sizeof(sendBuff), 0);
-
-								break;
-							case 5:
-								strcpy(sendBuff, "cerrarSesion");
-								send(s, sendBuff, sizeof(sendBuff), 0);
-								system("cls");
-								break;
-							default:
-								cout << "Error, seleccione otra opcion." << endl;
-								break;
-						}
-					} while (opcion2 != 5);
-				}else{
+			recv(s, recvBuff, sizeof(recvBuff), 0);
+			if (strcmp(recvBuff, "correcto") == 0)
+			{
+				do
+				{
 					system("cls");
-					cout << "////////////////////////////////////////"<< endl;
-					cout << "                            "<< endl;
-					cout << "Los datos introducidos son " << recvBuff << endl;
-					cout << "                            "<< endl;
-					cout << "////////////////////////////////////////"<< endl;
-				}
-				break;
-			case 2:
-				// registro(s);
-				strcpy(sendBuff, "register");
-				send(s, sendBuff, sizeof(sendBuff), 0);
-				break;
-			case 3:
-				strcpy(sendBuff, "exit");
-				send(s, sendBuff, sizeof(sendBuff), 0);
-				cout << "Cerrando programa..." << endl;
-				cout << "Hasta pronto!" << endl;
-				break;
-			default:
-				cout << "Error, introduce un numero valido" << endl;
-				break;
+					menuPrograma();
+					cin >> opcion2;
+					cout << "\n";
+
+					switch (opcion2)
+					{
+					case 1:
+						// mandar instruccion comprarCoche al servidor
+						strcpy(sendBuff, "comprarCoches");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						atoi(extra, recvbuff);
+						for (i = 0; i < extra; i++)
+						{
+							Coche coche = new Coche();
+							recv(s, recvBuff, sizeof(recvBuff), 0);
+							coche.setMatricula(recvBuff);
+							recv(s, recvBuff, sizeof(recvBuff), 0);
+							coche.setMarca(recvbuff);
+							recv(s, recvBuff, sizeof(recvBuff), 0);
+							coche.setModelo(recvbuff);
+							recv(s, recvBuff, sizeof(recvBuff), 0);
+							atoi(extra2, recvbuff);
+							coche.setAutomatico(extra2);
+							recv(s, recvBuff, sizeof(recvBuff), 0);
+							atoi(extra2, recvbuff);
+							coche.setPlazas(extra2);
+							recv(s, recvBuff, sizeof(recvBuff), 0);
+							atoi(extra2, recvbuff);
+							coche.setAnyoFabricacion(extra2);
+							coche.imprimirInformacion();
+							listaCoches[i] = coche;
+						}
+						// introduce que coche comprar
+						cin >> opcion3;
+
+						strcpy(sendBuff, listaCoches[opcion3].getMatricula());
+						send(s, sendBuff, sizeof(sendBuff), 0);
+						strcpy(sendBuff, listaCoches[opcion3].getMarca());
+						send(s, sendBuff, sizeof(sendBuff), 0);
+						strcpy(sendBuff, listaCoches[opcion3].getModelo());
+						send(s, sendBuff, sizeof(sendBuff), 0);
+						strcpy(sendBuff, (to_string(listaCoches[opcion3].getAutomatico())).c_str());
+						send(s, sendBuff, sizeof(sendBuff), 0);
+						strcpy(sendBuff, (to_string(listaCoches[opcion3].getPlazas())).c_str());
+						send(s, sendBuff, sizeof(sendBuff), 0);
+						strcpy(sendBuff, (to_string(listaCoches[opcion3].getAnyoFabricacion())).c_str());
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						if (strcmp(recvBuff, "OK") == 0)
+						{
+							cout << "Compra realizada con exito" << endl;
+
+							// imprime ticket de compra realizada
+						}
+						else
+						{
+							cout << "Error en la compra" << endl;
+						}
+
+						cout << recvBuff << endl;
+						break;
+					case 2:
+						// mandar instruccion misCoches al servidor
+						strcpy(sendBuff, "misCoches");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						break;
+					case 3:
+						// mandar instruccion misTickets al servidor
+						strcpy(sendBuff, "misTickets");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						break;
+					case 4:
+						// mandar instruccion miPerfil al servidor
+						strcpy(sendBuff, "verPerfil");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						break;
+					case 5:
+						strcpy(sendBuff, "cerrarSesion");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+						system("cls");
+						break;
+					default:
+						cout << "Error, seleccione otra opcion." << endl;
+						break;
+					}
+				} while (opcion2 != 5);
+			}
+			else
+			{
+				system("cls");
+				cout << "////////////////////////////////////////" << endl;
+				cout << "                            " << endl;
+				cout << "Los datos introducidos son " << recvBuff << endl;
+				cout << "                            " << endl;
+				cout << "////////////////////////////////////////" << endl;
+			}
+			break;
+		case 2:
+			// registro(s);
+			strcpy(sendBuff, "register");
+			send(s, sendBuff, sizeof(sendBuff), 0);
+			break;
+		case 3:
+			strcpy(sendBuff, "exit");
+			send(s, sendBuff, sizeof(sendBuff), 0);
+			cout << "Cerrando programa..." << endl;
+			cout << "Hasta pronto!" << endl;
+			break;
+		default:
+			cout << "Error, introduce un numero valido" << endl;
+			break;
 		}
 
 	} while (opcion != 3);
