@@ -4,14 +4,20 @@
 class Usuario
 {
 protected:
+	char* usuario;
+	char* contrasenya;
 	char* nombre;
 	char* dni;
 	char* email;
 public:
 	Usuario();
-	Usuario(const char* nombre, const char* dni, const char* email);
+	Usuario(const char* usuario, const char* contrasenya, const char* nombre, const char* dni, const char* email);
 	virtual ~Usuario();
 
+	char* getUsuario() const;
+	void setUsuario(const char* usuario);
+	char* getContrasenya() const;
+	void setContrasenya(const char* contrasenya);
 	char* getNombre() const;
 	void setNombre(const char* nombre);
 	char* getDni() const;

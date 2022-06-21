@@ -5,13 +5,19 @@
 
 Usuario::Usuario()
 {
+	this->usuario = NULL;
+	this->contrasenya = NULL;
 	this->nombre = NULL;
 	this->dni = NULL;
 	this->email = NULL;
 }
 
-Usuario::Usuario(const char* nombre, const char* dni, const char* email)
+Usuario::Usuario(const char* usuario, const char* contrasenya, const char* nombre, const char* dni, const char* email)
 {
+	this->usuario = new char[strlen(usuario)+1];
+	strcpy(this->usuario, usuario);
+	this->contrasenya = new char[strlen(contrasenya)+1];
+	strcpy(this->contrasenya, contrasenya);
 	this->nombre = new char[strlen(nombre)+1];
 	strcpy(this->nombre, nombre);
 	this->dni = new char[strlen(dni)+1];
@@ -22,9 +28,33 @@ Usuario::Usuario(const char* nombre, const char* dni, const char* email)
 
 Usuario::~Usuario()
 {
+	delete []this->usuario;
+	delete []this->contrasenya;
 	delete []this->nombre;
 	delete []this->dni;
 	delete []this->email;
+}
+
+char* Usuario::getUsuario() const
+{
+	return this->usuario;
+}
+
+void Usuario::setUsuario(const char* usuario)
+{
+	this->usuario = new char[strlen(usuario)+1];
+	strcpy(this->usuario, usuario);
+}
+
+char* Usuario::getContrasenya() const
+{
+	return this->contrasenya;
+}
+
+void Usuario::setContrasenya(const char* contrasenya)
+{
+	this->contrasenya = new char[strlen(contrasenya)+1];
+	strcpy(this->contrasenya, contrasenya);
 }
 
 char* Usuario::getNombre() const

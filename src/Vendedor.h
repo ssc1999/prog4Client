@@ -10,7 +10,7 @@ protected:
 	int numVentas;
 public:
 	Vendedor();
-	Vendedor(const char* nombre, const char* dni, const char* telefono, const char* email);
+	Vendedor(const char* usuario, const char* contrasenya, const char* nombre, const char* dni, const char* telefono, const char* email);
 	~Vendedor();
 
 	float getSueldo() const;

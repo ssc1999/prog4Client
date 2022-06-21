@@ -13,7 +13,7 @@ protected:
 //	Ticket** tickets; // crear un método en la bd que me devuelva los tickets de x vendedor
 public:
 	Comprador();
-	Comprador(const char* nombre, const char* dni, const char* telefono, const char* email, const char* cuentaBancaria);
+	Comprador(const char* usuario, const char* contrasenya, const char* nombre, const char* dni, const char* telefono, const char* email, const char* cuentaBancaria);
 	~Comprador();
 
 	char* getCuentaBancaria() const;
