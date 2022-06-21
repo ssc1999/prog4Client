@@ -5,12 +5,22 @@ class Ticket
 {
 protected:
 	char* nomComprador;
-	char* nomCoche; // marca - modelo
+	char* nomUsuario;
+	char* matricula;
 	char* fechaCompra;
 public:
 	Ticket();
-	Ticket(const char* fechaCompra, const char* nomComprador, const char* nomCoche);
+	Ticket(const char* nomComprador, const char* nomUsuario, const char* matricula,  const char* fechaCompra);
 	~Ticket();
+
+	char* getNomComprador() const;
+	void setNomComprador(const char* nomComprador);
+	char* getNomUsuario() const;
+	void setNomUsuario(const char* nomUsuario);
+	char* getMatricula() const;
+	void setMatricula(const char* matricula);
+	char* getFechaCompra() const;
+	void setFechaCompra(const char* fechaCompra);
 
 	void comprarCoche();
 

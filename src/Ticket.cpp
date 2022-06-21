@@ -4,26 +4,74 @@
 
 Ticket::Ticket()
 {
-	this->fechaCompra = NULL;
 	this->nomComprador = NULL;
-	this->nomCoche = NULL;
+	this->nomUsuario = NULL;
+	this->matricula = NULL;
+	this->fechaCompra = NULL;
 }
 
-Ticket::Ticket(const char* fechaCompra, const char* nomComprador, const char* nomCoche)
+Ticket::Ticket(const char* nomComprador, const char* nomUsuario, const char* matricula,  const char* fechaCompra)
 {
-	this->fechaCompra = new char[strlen(fechaCompra)+1];
-	strcpy(this->fechaCompra, fechaCompra);
 	this->nomComprador = new char[strlen(nomComprador)+1];
 	strcpy(this->nomComprador, nomComprador);
-	this->nomCoche = new char[strlen(nomCoche)+1];
-	strcpy(this->nomCoche, nomCoche);
+	this->nomUsuario = new char[strlen(nomUsuario)+1];
+	strcpy(this->nomUsuario, nomUsuario);
+	this->matricula = new char[strlen(matricula)+1];
+	strcpy(this->matricula, matricula);
+	this->fechaCompra = new char[strlen(fechaCompra)+1];
+	strcpy(this->fechaCompra, fechaCompra);
 }
 
 Ticket::~Ticket()
 {
-	delete this->fechaCompra;
-	delete this->nomComprador;
-	delete this->nomCoche;
+	delete[]this->nomComprador;
+	delete[]this->nomUsuario;
+	delete[]this->matricula;
+	delete[]this->fechaCompra;
+}
+
+char* Ticket::getNomComprador() const
+{
+	return this->nomComprador;
+}
+
+void Ticket::setNomComprador(const char* nomComprador)
+{
+	this->nomComprador = new char[strlen(nomComprador)+1];
+	strcpy(this->nomComprador, nomComprador);
+}
+
+char* Ticket::getNomUsuario() const
+{
+	return this->nomUsuario;
+}
+
+void Ticket::setNomUsuario(const char* nomUsuario)
+{
+	this->nomUsuario = new char[strlen(nomUsuario)+1];
+	strcpy(this->nomUsuario, nomUsuario);
+}
+
+char* Ticket::getMatricula() const
+{
+	return this->matricula;
+}
+
+void Ticket::setMatricula(const char* matricula)
+{
+	this->matricula = new char[strlen(matricula)+1];
+	strcpy(this->matricula, matricula);
+}
+
+char* Ticket::getFechaCompra() const
+{
+	return this->fechaCompra;
+}
+
+void Ticket::setFechaCompra(const char* fechaCompra)
+{
+	this->fechaCompra = new char[strlen(fechaCompra)+1];
+	strcpy(this->fechaCompra, fechaCompra);
 }
 
 void Ticket::comprarCoche()
