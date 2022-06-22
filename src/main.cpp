@@ -214,27 +214,39 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 						send(s, sendBuff, sizeof(sendBuff), 0);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
 						extra = atoi(recvBuff);
+						cout << extra << "\n"
+							 << endl;
 						for (i = 0; i < extra; i++)
 						{
 							Coche *coche = new Coche();
 							recv(s, recvBuff, sizeof(recvBuff), 0);
+							cout << recvBuff << "\n"<< endl;
 							coche->setMatricula(recvBuff);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
+							cout << recvBuff << "\n"<< endl;
 							coche->setMarca(recvBuff);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
+							cout << recvBuff << "\n"<< endl;
 							coche->setModelo(recvBuff);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
+							cout << recvBuff << "\n"<< endl;
 							extra2 = atoi(recvBuff); // esta dpm
+							cout << recvBuff << "\n"<< endl;
 							coche->setAutomatico(extra2);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
+							cout << recvBuff << "\n"<< endl;
 							extra2 = atoi(recvBuff);
 							coche->setPlazas(extra2);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
+							cout << recvBuff << "\n"<< endl;
 							extra2 = atoi(recvBuff);
 							coche->setAnyoFabricacion(extra2);
 							coche->imprimirInformacion();
 							listaCoches[i] = coche;
 						}
+						cout << listaCoches[1]->getMarca() <<"\n"<< endl;
+						cout << listaCoches[1]->getMarca() <<"\n"<< endl;
+						cout << listaCoches[1]->getMarca() <<"\n"<< endl;
 						// introduce que coche comprar
 						cin >> opcion3;
 
