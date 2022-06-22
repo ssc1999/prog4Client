@@ -323,7 +323,7 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 				do
 				{
 					system("cls");
-					menuPrograma();
+					menuProgramaComprador();
 					cin >> opcion2;
 					cout << "\n";
 

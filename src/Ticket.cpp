@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Ticket.h"
 #include <string.h>
+using namespace std;
+
+#include <stdio.h>
 
 Ticket::Ticket()
 {
