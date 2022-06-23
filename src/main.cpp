@@ -62,8 +62,24 @@ void menuProgramaComprador()
 	cout << "|    1. Comprar coche                            |" << endl;
 	cout << "|    2. Mis coches             	                 |" << endl;
 	cout << "|    3. Mis tickets                              |" << endl;
-	cout << "|    4. Ver perfil                               |" << endl;
-	cout << "|    5. Cerrar Sesion                            |" << endl;
+	cout << "|    4. Perfil                                   |" << endl;
+	cout << "|    5. Cerrar sesion                            |" << endl;
+	cout << "|                                                |" << endl;
+	cout << " ------------------------------------------------ " << endl;
+}
+
+void menuProgramaVendedor()
+{
+	cout << " ------------------------------------------------ " << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
+	cout << "|------------------------------------------------|" << endl;
+	cout << "|                                                |" << endl;
+	cout << "|    Bienvenido!                                 |" << endl;
+	cout << "|                                                |" << endl;
+	cout << "|    1. Perfil                                   |" << endl;
+	cout << "|    2. Sueldo actual                            |" << endl;
+	cout << "|    3. Numero de ventas                         |" << endl;
+	cout << "|    4. Cerrar sesion                            |" << endl;
 	cout << "|                                                |" << endl;
 	cout << " ------------------------------------------------ " << endl;
 }
@@ -87,6 +103,54 @@ void menuContrasenya()
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|   Contrasenya:                                 |" << endl;
+	cout << "|    _                                           |" << endl;
+	cout << "|                                                |" << endl;
+	cout << " ------------------------------------------------" << endl;
+}
+
+void menuNombre()
+{
+	cout << " ------------------------------------------------" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
+	cout << "|------------------------------------------------|" << endl;
+	cout << "|                                                |" << endl;
+	cout << "|   Nombre y Apellido:                           |" << endl;
+	cout << "|    _                                           |" << endl;
+	cout << "|                                                |" << endl;
+	cout << " ------------------------------------------------" << endl;
+}
+
+void menuDni()
+{
+	cout << " ------------------------------------------------" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
+	cout << "|------------------------------------------------|" << endl;
+	cout << "|                                                |" << endl;
+	cout << "|   DNI:                                 |" << endl;
+	cout << "|    _                                           |" << endl;
+	cout << "|                                                |" << endl;
+	cout << " ------------------------------------------------" << endl;
+}
+
+void menuMail()
+{
+	cout << " ------------------------------------------------" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
+	cout << "|------------------------------------------------|" << endl;
+	cout << "|                                                |" << endl;
+	cout << "|   Email:                                 |" << endl;
+	cout << "|    _                                           |" << endl;
+	cout << "|                                                |" << endl;
+	cout << " ------------------------------------------------" << endl;
+}
+
+void menuCuentaBancaria()
+{
+	cout << " ------------------------------------------------" << endl;
+	cout << "| Concesionario                      | - | o | X |" << endl;
+	cout << "|------------------------------------------------|" << endl;
+	cout << "|                                                |" << endl;
+	cout << "|   Numero de cuenta bancaria:                   |" << endl;
 	cout << "|    _                                           |" << endl;
 	cout << "|                                                |" << endl;
 	cout << " ------------------------------------------------" << endl;
@@ -172,10 +236,10 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 	system("cls");
 	do
 	{
-
 		menuInicio();
+		cout.flush();
 		cin >> opcion;
-		cout << "\n";
+		cin.clear();
 
 		switch (opcion)
 		{
@@ -184,18 +248,21 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 			send(s, sendBuff, sizeof(sendBuff), 0);
 
 			menuNombreUsuario();
+			cout.flush();
 
 			cin >> buff;
+			cin.clear();
 			strcpy(usuario, buff);
 			strcpy(sendBuff, buff);
 			send(s, sendBuff, sizeof(sendBuff), 0);
 
 			menuContrasenya();
+			cout.flush();
 
 			cin >> buff;
+			cin.clear();
 			strcpy(sendBuff, buff);
 			send(s, sendBuff, sizeof(sendBuff), 0);
-
 			recv(s, recvBuff, sizeof(recvBuff), 0);
 			if (strcmp(recvBuff, "comprador") == 0)
 			{
@@ -203,8 +270,9 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 				{
 					system("cls");
 					menuProgramaComprador();
+					cout.flush();
 					cin >> opcion2;
-					cout << "\n";
+					cin.clear();
 
 					switch (opcion2)
 					{
@@ -214,8 +282,8 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 						send(s, sendBuff, sizeof(sendBuff), 0);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
 						extra = atoi(recvBuff);
-						cout << extra << "\n"
-							 << endl;
+						cout << extra << "\n"<< endl;
+						cout.flush();
 						for (i = 0; i < extra; i++)
 						{
 							Coche *coche = new Coche();
@@ -230,7 +298,7 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 							coche->setModelo(recvBuff);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
 							cout << recvBuff << "\n"<< endl;
-							extra2 = atoi(recvBuff); // esta dpm
+							extra2 = atoi(recvBuff);
 							cout << recvBuff << "\n"<< endl;
 							coche->setAutomatico(extra2);
 							recv(s, recvBuff, sizeof(recvBuff), 0);
@@ -249,7 +317,8 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 						cout << listaCoches[1]->getMarca() <<"\n"<< endl;
 						// introduce que coche comprar
 						cin >> opcion3;
-
+						cout.flush();
+						cin.clear();
 						// strcpy(sendBuff, listaCoches[opcion3]->getMarca());
 						// send(s, sendBuff, sizeof(sendBuff), 0);
 						// strcpy(sendBuff, listaCoches[opcion3]->getModelo());
@@ -291,15 +360,18 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 							ticket->imprimirInformacion();
 
 							cout << "Compra realizada con exito" << endl;
+							cout.flush();
 
 							// imprime ticket de compra realizada
 						}
 						else
 						{
 							cout << "Error en la compra" << endl;
+							cout.flush();
 						}
 
 						cout << recvBuff << endl;
+						cout.flush();
 						break;
 					case 2:
 						// mandar instruccion misCoches al servidor
@@ -330,136 +402,43 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 					}
 				} while (opcion2 != 5);
 			}
-			if (strcmp(recvBuff, "vendedor") == 0)
+			else if (strcmp(recvBuff, "vendedor") == 0)
 			{
 				do
 				{
 					system("cls");
-					menuProgramaComprador();
+					menuProgramaVendedor();
+					cout.flush();
 					cin >> opcion2;
-					cout << "\n";
+					cin.clear();
 
 					switch (opcion2)
 					{
 					case 1:
-						// mandar instruccion comprarCoche al servidor
-						strcpy(sendBuff, "comprarCoches");
-						send(s, sendBuff, sizeof(sendBuff), 0);
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						extra = atoi(recvBuff);
-						for (i = 0; i < extra; i++)
-						{
-							Coche *coche = new Coche();
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							coche->setMatricula(recvBuff);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							coche->setMarca(recvBuff);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							coche->setModelo(recvBuff);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							extra2 = atoi(recvBuff); // esta dpm
-							coche->setAutomatico(extra2);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							extra2 = atoi(recvBuff);
-							coche->setPlazas(extra2);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							extra2 = atoi(recvBuff);
-							coche->setAnyoFabricacion(extra2);
-							coche->imprimirInformacion();
-							listaCoches[i] = coche;
-						}
-						// introduce que coche comprar
-						cin >> opcion3;
 
-						// strcpy(sendBuff, listaCoches[opcion3]->getMarca());
-						// send(s, sendBuff, sizeof(sendBuff), 0);
-						// strcpy(sendBuff, listaCoches[opcion3]->getModelo());
-						// send(s, sendBuff, sizeof(sendBuff), 0);
-						// strcpy(sendBuff, (to_string(listaCoches[opcion3]->getAutomatico())).c_str());
-						// send(s, sendBuff, sizeof(sendBuff), 0);
-						// strcpy(sendBuff, (to_string(listaCoches[opcion3]->getPlazas())).c_str());
-						// send(s, sendBuff, sizeof(sendBuff), 0);
-						// strcpy(sendBuff, (to_string(listaCoches[opcion3]->getAnyoFabricacion())).c_str());
-						// send(s, sendBuff, sizeof(sendBuff), 0);
-
-						// coche matricula
-						strcpy(sendBuff, listaCoches[opcion3]->getMatricula());
-						send(s, sendBuff, sizeof(sendBuff), 0);
-
-						// usuario
-						strcpy(sendBuff, usuario);
-						send(s, sendBuff, sizeof(sendBuff), 0);
-
-						// fecha actual
-						strcpy(sendBuff, "2022-06-28");
-						send(s, sendBuff, sizeof(sendBuff), 0);
-
-						// recibo el nombre del usuario
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						strcpy(nombreComprador, recvBuff);
-
-						if (strcmp(recvBuff, "OK") == 0)
-						{
-
-							// creo el ticket
-							ticket = new Ticket();
-							ticket->setNomComprador(nombreComprador);
-							ticket->setNomUsuario(usuario);
-							ticket->setMatricula(listaCoches[opcion3]->getMatricula());
-							ticket->setFechaCompra("2022-06-28");
-
-							// lo imprimo
-							ticket->imprimirInformacion();
-
-							cout << "Compra realizada con exito" << endl;
-
-							// imprime ticket de compra realizada
-						}
-						else
-						{
-							cout << "Error en la compra" << endl;
-						}
-
-						cout << recvBuff << endl;
 						break;
 					case 2:
-						// mandar instruccion misCoches al servidor
-						strcpy(sendBuff, "misCoches");
-						send(s, sendBuff, sizeof(sendBuff), 0);
-
+						
 						break;
 					case 3:
-						// mandar instruccion misTickets al servidor
-						strcpy(sendBuff, "misTickets");
-						send(s, sendBuff, sizeof(sendBuff), 0);
-
+				
 						break;
 					case 4:
 						// mandar instruccion miPerfil al servidor
-						strcpy(sendBuff, "verPerfil");
-						send(s, sendBuff, sizeof(sendBuff), 0);
-
-						break;
-					case 5:
 						strcpy(sendBuff, "cerrarSesion");
 						send(s, sendBuff, sizeof(sendBuff), 0);
 						system("cls");
 						break;
 					default:
 						cout << "Error, seleccione otra opcion." << endl;
+						cout.flush();
 						break;
 					}
-				} while (opcion2 != 5);
+				} while (opcion2 != 4);
 			}
-
 			else
 			{
 				system("cls");
-				cout << "////////////////////////////////////////" << endl;
-				cout << "                            " << endl;
-				cout << "Los datos introducidos son " << recvBuff << endl;
-				cout << "                            " << endl;
-				cout << "////////////////////////////////////////" << endl;
 			}
 			break;
 		case 2:
@@ -467,24 +446,78 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 			strcpy(sendBuff, "registro");
 			send(s, sendBuff, sizeof(sendBuff), 0);
 			menuRegistro();
+			cout.flush();
 			cin >> sendBuff;
+			cin.clear();
 			send(s, sendBuff, sizeof(sendBuff), 0);
-			if (strcmp(sendBuff, "1"))
+			if (strcmp(sendBuff, "1") == 0)
 			{
-
+				menuNombre();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuDni();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuMail();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuCuentaBancaria();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuNombreUsuario();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuContrasenya();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
 				// mandar al server que queremos registrar comprador para
 				// pedir atributos por pantalla
 				// mandar atributos al server
 			}
-			if (strcmp(sendBuff, "2"))
+			else if (strcmp(sendBuff, "2") == 0)
 			{
-				// mandar al server que queremos registrar comprador para
-				// pedir atributos por pantalla
-				// mandar atributos al server
+				menuNombre();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuDni();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuMail();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuNombreUsuario();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
+				menuContrasenya();
+				cout.flush();
+				cin >> sendBuff;
+				cin.clear();
+				send(s, sendBuff, sizeof(sendBuff), 0);
 			}
 			else
 			{
 				cout << "Introduzca un numero valido" << endl;
+				cout.flush();
 			}
 			break;
 		case 3:
@@ -492,9 +525,11 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 			send(s, sendBuff, sizeof(sendBuff), 0);
 			cout << "Cerrando programa..." << endl;
 			cout << "Hasta pronto!" << endl;
+			cout.flush();
 			break;
 		default:
 			cout << "Error, introduce un numero valido" << endl;
+			cout.flush();
 			break;
 		}
 
