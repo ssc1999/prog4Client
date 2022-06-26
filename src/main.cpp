@@ -51,7 +51,7 @@ void menuInicio()
 	cout << " ------------------------------------------------" << endl;
 }
 
-void menuProgramaComprador()
+void menuComprador()
 {
 	cout << " ------------------------------------------------ " << endl;
 	cout << "| Concesionario                      | - | o | X |" << endl;
@@ -68,7 +68,7 @@ void menuProgramaComprador()
 	cout << " ------------------------------------------------ " << endl;
 }
 
-void menuProgramaVendedor()
+void menuVendedor()
 {
 	cout << " ------------------------------------------------ " << endl;
 	cout << "| Concesionario                      | - | o | X |" << endl;
@@ -114,7 +114,7 @@ void menuNombre()
 	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
-	cout << "|   Nombre y Apellido:                           |" << endl;
+	cout << "|   Nombre:                                      |" << endl;
 	cout << "|    _                                           |" << endl;
 	cout << "|                                                |" << endl;
 	cout << " ------------------------------------------------" << endl;
@@ -174,10 +174,12 @@ void cajaTextoSuperior()
 	cout << "| Concesionario                      | - | o | X |" << endl;
 	cout << "|------------------------------------------------|" << endl;
 	cout << "|                                                |" << endl;
+	cout << "                                                  " << endl;
 }
 
 void cajaTextoInferior()
 {
+	cout << "                                                  " << endl;
 	cout << "|                                                |" << endl;
 	cout << " ------------------------------------------------ " << endl;
 }
@@ -185,7 +187,7 @@ void cajaTextoInferior()
 // {
 // }
 
-int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el cpp???
+int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 {
 	WSADATA wsaData;
 	SOCKET s;
@@ -266,10 +268,11 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 			recv(s, recvBuff, sizeof(recvBuff), 0);
 			if (strcmp(recvBuff, "comprador") == 0)
 			{
+				system("cls");
 				do
 				{
-					system("cls");
-					menuProgramaComprador();
+					
+					menuComprador();
 					cout.flush();
 					cin >> opcion2;
 					cin.clear();
@@ -390,6 +393,20 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 						strcpy(sendBuff, "verPerfil");
 						send(s, sendBuff, sizeof(sendBuff), 0);
 
+						cajaTextoSuperior();
+						cout << "     Perfil" << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Usuario: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Nombre: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     DNI: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Email: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Cuenta bancaria: " << recvBuff<< endl;
+						cajaTextoInferior();
+
 						break;
 					case 5:
 						strcpy(sendBuff, "cerrarSesion");
@@ -404,10 +421,11 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 			}
 			else if (strcmp(recvBuff, "vendedor") == 0)
 			{
+				system("cls");
 				do
 				{
-					system("cls");
-					menuProgramaVendedor();
+					
+					menuVendedor();
 					cout.flush();
 					cin >> opcion2;
 					cin.clear();
@@ -415,7 +433,25 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de programa en el
 					switch (opcion2)
 					{
 					case 1:
+						strcpy(sendBuff, "verPerfil");
+						send(s, sendBuff, sizeof(sendBuff), 0);
 
+						cajaTextoSuperior();
+						cout << "     Perfil" << endl;
+						cout << "" << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Usuario: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Nombre: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     DNI: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Email: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Cuenta: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Numero de ventas: " << recvBuff<< endl;
+						cajaTextoInferior();
 						break;
 					case 2:
 						
