@@ -194,12 +194,24 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 	WSADATA wsaData;
 	SOCKET s;
 	struct sockaddr_in server;
-	char usuario[20], contrasenya[20], nombre[20], dni[20], telefono[20], email[20], nombreComprador[20], cuentaBancaria[20], buff[100], sendBuff[512], recvBuff[512];
-	int i, opcion, opcion2, opcion3, extra, extra2, sueldo, numVentas;
-	Coche *listaCoches[50];
-	Ticket *ticket;
+	char buff[100], sendBuff[512], recvBuff[512];
+	int i, opcion, opcion2, opcion3, extra, extra2;
+	
+	//USUARIO
 	Comprador *comprador;
 	Vendedor *vendedor;
+	char usuario[20], contrasenya[20], nombre[20], dni[20], telefono[20], email[20], nombreComprador[20], cuentaBancaria[20];
+	int sueldo, numVentas;
+	
+	//COCHE
+	Coche *listaCoches[50];
+	Coche *coche;
+	char matricula[20], marca[20], modelo[20];
+	int automatico, plazas, anyoFabricacion, precio;
+	
+	//TICKET
+	Ticket *ticket;
+	char nomComprador[20], nomUsuario[20], fechaCompra[20];
 
 	printf("\nInitialising Winsock...\n");
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
@@ -386,34 +398,55 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 						send(s, sendBuff, sizeof(sendBuff), 0);
 						
 						cajaTextoSuperior();
-						cout << "     Coche" << endl;
-						cout << "" << endl;
+						
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Matricula: " << recvBuff << endl;
+						strcpy(matricula, recvBuff);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Marca: " << recvBuff << endl;
+						strcpy(marca, recvBuff);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Modelo: " << recvBuff << endl;
+						strcpy(modelo, recvBuff);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						if(strcmp(recvBuff, "1") == 0){
-							cout << "     Caja: automatica" << endl;
+						automatico = atoi(recvBuff);
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						plazas = atoi(recvBuff);
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						anyoFabricacion = atoi(recvBuff);
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						precio = atoi(recvBuff);
+
+						if(plazas != 0){
+							coche = new Coche(matricula, marca, modelo, automatico, plazas, anyoFabricacion, precio);
+							coche->imprimirInformacion();
 						}else{
-							cout << "     Caja: manual" << endl;
+							cout << "     No tienes ningun coche comprado" << endl;
 						}
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Plazas: " << recvBuff << endl;
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Anyo de fabricacion: " << recvBuff<< endl;
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Precio: " << recvBuff << "euros" << endl;
+						
 						cajaTextoInferior();
 
 						break;
 					case 3:
 						// mandar instruccion misTickets al servidor
-						strcpy(sendBuff, "misTickets");
+						strcpy(sendBuff, "miTicket");
 						send(s, sendBuff, sizeof(sendBuff), 0);
 
+						cajaTextoSuperior();
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						strcpy(nomComprador, recvBuff);						
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						strcpy(nomUsuario, recvBuff);						
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						strcpy(matricula, recvBuff);						
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						strcpy(fechaCompra, recvBuff);						
+						if(strcmp(fechaCompra, "") != 0){
+							ticket = new Ticket(nomComprador, nomUsuario, matricula, fechaCompra);
+							ticket->imprimirInformacion();
+						}else{
+							cout << "     No tienes ningun ticket" << endl;
+						}
+						
+
+						cajaTextoInferior();
 						break;
 					case 4:
 						strcpy(sendBuff, "verPerfil");
@@ -615,7 +648,9 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 		}
 
 	} while (opcion != 3);
-
+	free(coche);
+	free(comprador);
+	free(vendedor);
 	// CLOSING the socket and cleaning Winsock...
 	closesocket(s);
 	WSACleanup();

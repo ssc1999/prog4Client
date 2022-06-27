@@ -79,9 +79,10 @@ void Ticket::setFechaCompra(const char* fechaCompra)
 
 void Ticket::imprimirInformacion()
 {
-	cout << "Ticket: " << endl;
-	cout << this->matricula << endl;
-	cout << this->nomComprador << endl;
-	cout << this->fechaCompra << endl;
-	//
+	cout << "     Ticket: " << endl;
+	cout << "" << endl;
+	cout << "     Nombre de usuario: " << this->nomUsuario << endl;
+	cout << "     Nombre : " << this->nomComprador << endl;
+	cout << "     Matricula: " << this->matricula << endl;
+	cout << "     Fecha: " << this->fechaCompra << endl;
 }

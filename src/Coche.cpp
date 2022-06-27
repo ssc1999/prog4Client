@@ -117,18 +117,17 @@ void Coche::setPrecio(int precio)
 
 void Coche::imprimirInformacion()
 {
-	cout << this->marca << " - " << this->modelo << endl;
-	cout << "-- -- -- -- -- -- -- -- -- -- -- - " << endl;
-	cout << "Matricula: " << this->matricula << endl;
-	if (this->automatico == 1)
-	{
-		cout << "Automatico" << endl;
+	cout << "     Coche" << endl;
+	cout << "" << endl;
+	cout << "     Matricula: " << this->matricula << endl;
+	cout << "     Marca: " << this->marca << endl;
+	cout << "     Modelo: " << this->modelo << endl;
+	if(this->automatico == 1){
+		cout << "     Caja: automatica" << endl;
+	}else{
+		cout << "     Caja: manual" << endl;
 	}
-	else
-	{
-		cout << "Manual" << endl;
-	}
-	cout << "Plazas: " << this->plazas << endl;
-	cout << "Anyo fabricacion: " << this->anyoFabricacion << endl;
-	cout << "Precio: " << this->precio << endl;
+	cout << "     Plazas: " << this->plazas << endl;
+	cout << "     Anyo de fabricacion: " << this->anyoFabricacion<< endl;
+	cout << "     Precio: " << this->precio << " euros" << endl;
 }
