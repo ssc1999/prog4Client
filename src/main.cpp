@@ -9,6 +9,8 @@
 #include <iostream>
 #include "Coche.h"
 #include "Ticket.h"
+#include "Comprador.h"
+#include "Vendedor.h"
 using namespace std;
 
 #include <stdio.h>
@@ -60,7 +62,7 @@ void menuComprador()
 	cout << "|    Bienvenido!                                 |" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|    1. Comprar coche                            |" << endl;
-	cout << "|    2. Mis coches             	                 |" << endl;
+	cout << "|    2. Mi coche              	                 |" << endl;
 	cout << "|    3. Mis tickets                              |" << endl;
 	cout << "|    4. Perfil                                   |" << endl;
 	cout << "|    5. Cerrar sesion                            |" << endl;
@@ -77,7 +79,7 @@ void menuVendedor()
 	cout << "|    Bienvenido!                                 |" << endl;
 	cout << "|                                                |" << endl;
 	cout << "|    1. Perfil                                   |" << endl;
-	cout << "|    2. Sueldo actual                            |" << endl;
+	cout << "|    2. Dinero en la cuenta                      |" << endl;
 	cout << "|    3. Numero de ventas                         |" << endl;
 	cout << "|    4. Cerrar sesion                            |" << endl;
 	cout << "|                                                |" << endl;
@@ -192,10 +194,12 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 	WSADATA wsaData;
 	SOCKET s;
 	struct sockaddr_in server;
-	char usuario[20], nombreComprador[20], buff[100], sendBuff[512], recvBuff[512];
-	int i, opcion, opcion2, opcion3, extra, extra2;
+	char usuario[20], contrasenya[20], nombre[20], dni[20], telefono[20], email[20], nombreComprador[20], cuentaBancaria[20], buff[100], sendBuff[512], recvBuff[512];
+	int i, opcion, opcion2, opcion3, extra, extra2, sueldo, numVentas;
 	Coche *listaCoches[50];
 	Ticket *ticket;
+	Comprador *comprador;
+	Vendedor *vendedor;
 
 	printf("\nInitialising Winsock...\n");
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
@@ -378,8 +382,31 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 						break;
 					case 2:
 						// mandar instruccion misCoches al servidor
-						strcpy(sendBuff, "misCoches");
+						strcpy(sendBuff, "miCoche");
 						send(s, sendBuff, sizeof(sendBuff), 0);
+						
+						cajaTextoSuperior();
+						cout << "     Coche" << endl;
+						cout << "" << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Matricula: " << recvBuff << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Marca: " << recvBuff << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Modelo: " << recvBuff << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						if(strcmp(recvBuff, "1") == 0){
+							cout << "     Caja: automatica" << endl;
+						}else{
+							cout << "     Caja: manual" << endl;
+						}
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Plazas: " << recvBuff << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Anyo de fabricacion: " << recvBuff<< endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Precio: " << recvBuff << "euros" << endl;
+						cajaTextoInferior();
 
 						break;
 					case 3:
@@ -389,24 +416,25 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 
 						break;
 					case 4:
-						// mandar instruccion miPerfil al servidor
 						strcpy(sendBuff, "verPerfil");
 						send(s, sendBuff, sizeof(sendBuff), 0);
 
 						cajaTextoSuperior();
-						cout << "     Perfil" << endl;
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Usuario: " << recvBuff<< endl;
+						strcpy(usuario, recvBuff);						
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Nombre: " << recvBuff<< endl;
+						strcpy(nombre, recvBuff);						
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     DNI: " << recvBuff<< endl;
+						strcpy(dni, recvBuff);						
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Email: " << recvBuff<< endl;
+						strcpy(email, recvBuff);						
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Cuenta bancaria: " << recvBuff<< endl;
-						cajaTextoInferior();
+						strcpy(cuentaBancaria, recvBuff);
+						
+						comprador = new Comprador(usuario, contrasenya, nombre, dni, telefono, email, cuentaBancaria);
+						comprador->imprimirInformacion();
 
+						cajaTextoInferior();
 						break;
 					case 5:
 						strcpy(sendBuff, "cerrarSesion");
@@ -437,27 +465,44 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 						send(s, sendBuff, sizeof(sendBuff), 0);
 
 						cajaTextoSuperior();
-						cout << "     Perfil" << endl;
-						cout << "" << endl;
+						
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Usuario: " << recvBuff<< endl;
+						strcpy(usuario, recvBuff);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Nombre: " << recvBuff<< endl;
+						strcpy(nombre, recvBuff);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     DNI: " << recvBuff<< endl;
+						strcpy(dni, recvBuff);
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Email: " << recvBuff<< endl;
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Cuenta: " << recvBuff<< endl;
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						cout << "     Numero de ventas: " << recvBuff<< endl;
+						strcpy(email, recvBuff);
+
+						vendedor = new Vendedor(usuario, contrasenya, nombre, dni, telefono, email);
+						vendedor->imprimirInformacion();
+
 						cajaTextoInferior();
 						break;
 					case 2:
-						
+						strcpy(sendBuff, "verDinero");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						cajaTextoSuperior();
+						cout << "     Dinero en la cuenta:" << endl;
+						cout << "" << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Total de " << recvBuff<< " euros."<< endl;
+						cajaTextoInferior();
+
 						break;
 					case 3:
-				
+						strcpy(sendBuff, "verNumeroVentas");
+						send(s, sendBuff, sizeof(sendBuff), 0);
+
+						cajaTextoSuperior();
+						cout << "     Numero de ventas:" << endl;
+						cout << "" << endl;
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						cout << "     Total de " << recvBuff<< " ventas."<< endl;
+						cajaTextoInferior();
+
 						break;
 					case 4:
 						// mandar instruccion miPerfil al servidor

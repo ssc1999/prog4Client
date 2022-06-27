@@ -10,10 +10,11 @@ protected:
 	int automatico;
 	int plazas;
 	int anyoFabricacion;
+	int precio;
 
 public:
 	Coche();
-	Coche(const char *matricula, const char *marca, const char *modelo, int automaatico, int plazas, int anyoFabricacion);
+	Coche(const char *matricula, const char *marca, const char *modelo, int automaatico, int plazas, int anyoFabricacion, int precio);
 	~Coche();
 
 	char *getMatricula() const;
@@ -28,6 +29,8 @@ public:
 	void setPlazas(int plazas);
 	int getAnyoFabricacion();
 	void setAnyoFabricacion(int anyoFabricacion);
+	int getPrecio();
+	void setPrecio(int precio);
 
 	void imprimirInformacion();
 };

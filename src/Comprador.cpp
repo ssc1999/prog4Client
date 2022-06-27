@@ -2,8 +2,10 @@
 
 #include "Usuario.h"
 #include "Comprador.h"
-#include "Ticket.h"
+
 #include <string.h>
+
+using namespace std;
 
 Comprador::Comprador(): Usuario()
 {
@@ -42,5 +44,16 @@ void Comprador::setCuentaBancaria(const char* cuentaBancaria)
 
 void Comprador::imprimirInformacion()
 {
-	// imprimir info
+	cout << "     Perfil" << endl;
+	cout << "" << endl;
+	cout << "" << endl;
+	cout << "     Usuario: " << this->usuario << endl;
+	cout << "" << endl;
+	cout << "     Nombre: " << this->nombre << endl;
+	cout << "     DNI: " << this->dni << endl;
+	cout << "" << endl;
+	cout << "     Email: " << this->email << endl;
+	cout << "" << endl;
+	cout << "     Cuenta bancaria: " << this->cuentaBancaria << endl;
+
 }

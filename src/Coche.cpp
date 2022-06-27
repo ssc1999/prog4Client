@@ -12,9 +12,10 @@ Coche::Coche()
 	this->automatico = 0;
 	this->plazas = 0;
 	this->anyoFabricacion = 0;
+	this->precio = 0;
 }
 
-Coche::Coche(const char *matricula, const char *marca, const char *modelo, int automatico, int plazas, int anyoFabricacion)
+Coche::Coche(const char *matricula, const char *marca, const char *modelo, int automatico, int plazas, int anyoFabricacion, int precio)
 {
 	this->matricula = new char[strlen(matricula) + 1];
 	strcpy(this->matricula, matricula);
@@ -28,6 +29,7 @@ Coche::Coche(const char *matricula, const char *marca, const char *modelo, int a
 	}
 	this->plazas = plazas;
 	this->anyoFabricacion = anyoFabricacion;
+	this->precio = precio;
 }
 
 Coche::~Coche()
@@ -103,6 +105,16 @@ void Coche::setAnyoFabricacion(int anyoFabricacion)
 	this->anyoFabricacion = anyoFabricacion;
 }
 
+int Coche::getPrecio()
+{
+	return this->precio;
+}
+
+void Coche::setPrecio(int precio)
+{
+	this->precio = precio;
+}
+
 void Coche::imprimirInformacion()
 {
 	cout << this->marca << " - " << this->modelo << endl;
@@ -118,4 +130,5 @@ void Coche::imprimirInformacion()
 	}
 	cout << "Plazas: " << this->plazas << endl;
 	cout << "Anyo fabricacion: " << this->anyoFabricacion << endl;
+	cout << "Precio: " << this->precio << endl;
 }
