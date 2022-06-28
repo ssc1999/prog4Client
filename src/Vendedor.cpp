@@ -39,7 +39,7 @@ float Vendedor::getNumVentas() const
 
 void Vendedor::imprimirInformacion()
 {
-	cout << "     Perfil" << endl;
+	cout << "     Perfil:" << endl;
 	cout << "" << endl;
 	cout << "     Usuario: " << this->usuario<< endl;
 	cout << "     Nombre: " << this->nombre<< endl;

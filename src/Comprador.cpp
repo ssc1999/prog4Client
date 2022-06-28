@@ -44,7 +44,7 @@ void Comprador::setCuentaBancaria(const char* cuentaBancaria)
 
 void Comprador::imprimirInformacion()
 {
-	cout << "     Perfil" << endl;
+	cout << "     Perfil:" << endl;
 	cout << "" << endl;
 	cout << "" << endl;
 	cout << "     Usuario: " << this->usuario << endl;

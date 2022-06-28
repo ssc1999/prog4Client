@@ -117,7 +117,7 @@ void Coche::setPrecio(int precio)
 
 void Coche::imprimirInformacion()
 {
-	cout << "     Coche" << endl;
+	cout << "     Coche:" << endl;
 	cout << "" << endl;
 	cout << "     Matricula: " << this->matricula << endl;
 	cout << "     Marca: " << this->marca << endl;
