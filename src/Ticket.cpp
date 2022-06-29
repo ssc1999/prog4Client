@@ -11,9 +11,10 @@ Ticket::Ticket()
 	this->nomUsuario = NULL;
 	this->matricula = NULL;
 	this->fechaCompra = NULL;
+	this->precio = 0;
 }
 
-Ticket::Ticket(const char* nomComprador, const char* nomUsuario, const char* matricula,  const char* fechaCompra)
+Ticket::Ticket(const char* nomComprador, const char* nomUsuario, const char* matricula,  const char* fechaCompra, int precio)
 {
 	this->nomComprador = new char[strlen(nomComprador)+1];
 	strcpy(this->nomComprador, nomComprador);
@@ -23,6 +24,7 @@ Ticket::Ticket(const char* nomComprador, const char* nomUsuario, const char* mat
 	strcpy(this->matricula, matricula);
 	this->fechaCompra = new char[strlen(fechaCompra)+1];
 	strcpy(this->fechaCompra, fechaCompra);
+	this->precio = precio;
 }
 
 Ticket::~Ticket()
@@ -77,6 +79,16 @@ void Ticket::setFechaCompra(const char* fechaCompra)
 	strcpy(this->fechaCompra, fechaCompra);
 }
 
+int Ticket::getPrecio()
+{
+	return this->precio;
+}
+
+void Ticket::setPrecio (int precio)
+{
+	this->precio = precio;
+}
+
 void Ticket::imprimirInformacion()
 {
 	cout << "     Ticket: " << endl;
@@ -85,4 +97,5 @@ void Ticket::imprimirInformacion()
 	cout << "     Nombre : " << this->nomComprador << endl;
 	cout << "     Matricula: " << this->matricula << endl;
 	cout << "     Fecha: " << this->fechaCompra << endl;
+	cout << "     Total: " << this->precio << " euros." << endl;
 }

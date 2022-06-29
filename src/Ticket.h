@@ -8,9 +8,11 @@ protected:
 	char* nomUsuario;
 	char* matricula;
 	char* fechaCompra;
+	int precio;
+
 public:
 	Ticket();
-	Ticket(const char* nomComprador, const char* nomUsuario, const char* matricula,  const char* fechaCompra);
+	Ticket(const char* nomComprador, const char* nomUsuario, const char* matricula,  const char* fechaCompra, int precio);
 	~Ticket();
 
 	char* getNomComprador() const;
@@ -21,6 +23,8 @@ public:
 	void setMatricula(const char* matricula);
 	char* getFechaCompra() const;
 	void setFechaCompra(const char* fechaCompra);
+	int getPrecio() ;
+	void setPrecio(int precio);
 
 	void imprimirInformacion();
 

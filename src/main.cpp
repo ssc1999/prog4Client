@@ -63,7 +63,7 @@ void menuComprador()
 	cout << "|                                                |" << endl;
 	cout << "|    1. Comprar coche                            |" << endl;
 	cout << "|    2. Mi coche              	                 |" << endl;
-	cout << "|    3. Mis tickets                              |" << endl;
+	cout << "|    3. Mi ticket                                |" << endl;
 	cout << "|    4. Perfil                                   |" << endl;
 	cout << "|    5. Cerrar sesion                            |" << endl;
 	cout << "|                                                |" << endl;
@@ -299,45 +299,45 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 						// mandar instruccion comprarCoche al servidor
 						strcpy(sendBuff, "comprarCoches");
 						send(s, sendBuff, sizeof(sendBuff), 0);
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						extra = atoi(recvBuff);
-						cout << extra << "\n"<< endl;
-						cout.flush();
-						for (i = 0; i < extra; i++)
-						{
-							Coche *coche = new Coche();
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							cout << recvBuff << "\n"<< endl;
-							coche->setMatricula(recvBuff);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							cout << recvBuff << "\n"<< endl;
-							coche->setMarca(recvBuff);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							cout << recvBuff << "\n"<< endl;
-							coche->setModelo(recvBuff);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							cout << recvBuff << "\n"<< endl;
-							extra2 = atoi(recvBuff);
-							cout << recvBuff << "\n"<< endl;
-							coche->setAutomatico(extra2);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							cout << recvBuff << "\n"<< endl;
-							extra2 = atoi(recvBuff);
-							coche->setPlazas(extra2);
-							recv(s, recvBuff, sizeof(recvBuff), 0);
-							cout << recvBuff << "\n"<< endl;
-							extra2 = atoi(recvBuff);
-							coche->setAnyoFabricacion(extra2);
-							coche->imprimirInformacion();
-							listaCoches[i] = coche;
-						}
-						cout << listaCoches[1]->getMarca() <<"\n"<< endl;
-						cout << listaCoches[1]->getMarca() <<"\n"<< endl;
-						cout << listaCoches[1]->getMarca() <<"\n"<< endl;
-						// introduce que coche comprar
-						cin >> opcion3;
-						cout.flush();
-						cin.clear();
+						// recv(s, recvBuff, sizeof(recvBuff), 0);
+						// extra = atoi(recvBuff);
+						// cout << extra << "\n"<< endl;
+						// cout.flush();
+						// for (i = 0; i < extra; i++)
+						// {
+						// 	Coche *coche = new Coche();
+						// 	recv(s, recvBuff, sizeof(recvBuff), 0);
+						// 	cout << recvBuff << "\n"<< endl;
+						// 	coche->setMatricula(recvBuff);
+						// 	recv(s, recvBuff, sizeof(recvBuff), 0);
+						// 	cout << recvBuff << "\n"<< endl;
+						// 	coche->setMarca(recvBuff);
+						// 	recv(s, recvBuff, sizeof(recvBuff), 0);
+						// 	cout << recvBuff << "\n"<< endl;
+						// 	coche->setModelo(recvBuff);
+						// 	recv(s, recvBuff, sizeof(recvBuff), 0);
+						// 	cout << recvBuff << "\n"<< endl;
+						// 	extra2 = atoi(recvBuff);
+						// 	cout << recvBuff << "\n"<< endl;
+						// 	coche->setAutomatico(extra2);
+						// 	recv(s, recvBuff, sizeof(recvBuff), 0);
+						// 	cout << recvBuff << "\n"<< endl;
+						// 	extra2 = atoi(recvBuff);
+						// 	coche->setPlazas(extra2);
+						// 	recv(s, recvBuff, sizeof(recvBuff), 0);
+						// 	cout << recvBuff << "\n"<< endl;
+						// 	extra2 = atoi(recvBuff);
+						// 	coche->setAnyoFabricacion(extra2);
+						// 	coche->imprimirInformacion();
+						// 	listaCoches[i] = coche;
+						// }
+						// cout << listaCoches[1]->getMarca() <<"\n"<< endl;
+						// cout << listaCoches[1]->getMarca() <<"\n"<< endl;
+						// cout << listaCoches[1]->getMarca() <<"\n"<< endl;
+						// // introduce que coche comprar
+						// cin >> opcion3;
+						// cout.flush();
+						// cin.clear();
 						// strcpy(sendBuff, listaCoches[opcion3]->getMarca());
 						// send(s, sendBuff, sizeof(sendBuff), 0);
 						// strcpy(sendBuff, listaCoches[opcion3]->getModelo());
@@ -350,47 +350,50 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 						// send(s, sendBuff, sizeof(sendBuff), 0);
 
 						// coche matricula
-						strcpy(sendBuff, listaCoches[opcion3]->getMatricula());
-						send(s, sendBuff, sizeof(sendBuff), 0);
+						// strcpy(sendBuff, listaCoches[opcion3]->getMatricula());
+						// send(s, sendBuff, sizeof(sendBuff), 0);
 
 						// usuario
-						strcpy(sendBuff, usuario);
-						send(s, sendBuff, sizeof(sendBuff), 0);
+						// strcpy(sendBuff, usuario);
+						// send(s, sendBuff, sizeof(sendBuff), 0);
 
 						// fecha actual
-						strcpy(sendBuff, "2022-06-28");
-						send(s, sendBuff, sizeof(sendBuff), 0);
+						// cout << "Introduce la fecha actual" << endl;
+						// cin >> sendBuff;
+						// cout.flush();
+						// cin.clear();
+						// send(s, sendBuff, sizeof(sendBuff), 0);
 
 						// recibo el nombre del usuario
-						recv(s, recvBuff, sizeof(recvBuff), 0);
-						strcpy(nombreComprador, recvBuff);
+						// recv(s, recvBuff, sizeof(recvBuff), 0);
+						// strcpy(nombreComprador, recvBuff);
 
-						if (strcmp(recvBuff, "OK") == 0)
-						{
+						// if (strcmp(recvBuff, "OK") == 0)
+						// {
 
 							// creo el ticket
-							ticket = new Ticket();
-							ticket->setNomComprador(nombreComprador);
-							ticket->setNomUsuario(usuario);
-							ticket->setMatricula(listaCoches[opcion3]->getMatricula());
-							ticket->setFechaCompra("2022-06-28");
+							// ticket = new Ticket();
+							// ticket->setNomComprador(nombreComprador);
+							// ticket->setNomUsuario(usuario);
+							// ticket->setMatricula(listaCoches[opcion3]->getMatricula());
+							// ticket->setFechaCompra("2022-06-28");
 
 							// lo imprimo
-							ticket->imprimirInformacion();
+							// ticket->imprimirInformacion();
 
-							cout << "Compra realizada con exito" << endl;
-							cout.flush();
+							// cout << "Compra realizada con exito" << endl;
+							// cout.flush();
 
 							// imprime ticket de compra realizada
-						}
-						else
-						{
-							cout << "Error en la compra" << endl;
-							cout.flush();
-						}
+						// }
+						// else
+						// {
+						// 	cout << "Error en la compra" << endl;
+						// 	cout.flush();
+						// }
 
-						cout << recvBuff << endl;
-						cout.flush();
+						// cout << recvBuff << endl;
+						// cout.flush();
 						break;
 					case 2:
 						// mandar instruccion misCoches al servidor
@@ -437,9 +440,11 @@ int main(int argc, char *argv[]) // se pueden meter argumentos de  en el cpp???
 						recv(s, recvBuff, sizeof(recvBuff), 0);
 						strcpy(matricula, recvBuff);						
 						recv(s, recvBuff, sizeof(recvBuff), 0);
-						strcpy(fechaCompra, recvBuff);						
+						strcpy(fechaCompra, recvBuff);		
+						recv(s, recvBuff, sizeof(recvBuff), 0);
+						precio = atoi(recvBuff);				
 						if(strcmp(fechaCompra, "") != 0){
-							ticket = new Ticket(nomComprador, nomUsuario, matricula, fechaCompra);
+							ticket = new Ticket(nomComprador, nomUsuario, matricula, fechaCompra, precio);
 							ticket->imprimirInformacion();
 						}else{
 							cout << "     No tienes ningun ticket" << endl;
